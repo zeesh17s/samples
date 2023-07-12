@@ -20,9 +20,9 @@ This example exposes pihole to the local network on the ip address provided in c
 Docker network bridge (Macvlan) is created to expose the services to local network. It limits the communication between the host and the containers running on this network bridge. Following cammands can be used to supplement host <-> containers communications.
 
 
-  ip link add host-cntr link eth0 type macvlan mode bridge
-  ip addr add 192.168.1.X/X dev host-cntr
-  ip l set host-cntr up
-  ip route add 192.168.1.X/X dev host-cntr
+  ip link add host-cntr link eth0 type macvlan mode bridge </br>
+  ip addr add 192.168.1.X/X dev host-cntr </br>
+  ip l set host-cntr up </br>
+  ip route add 192.168.1.X/X dev host-cntr </br>
  
  update /etc/hosts to resolve the server name
