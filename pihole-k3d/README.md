@@ -10,9 +10,9 @@ This example exposes pihole to the local network on the ip address provided in c
 
  - Make local directory for the data persistence
         e.g /mnt/data/pihole
-   - Provide details in config file to be used for deploying the application
-   - Execute run.sh script.
-   - Access webgui at  http://ip-address/admin 
+ - Provide details in config file to be used for deploying the application
+ - Execute run.sh script.
+ - Access webgui at  http://ip-address/admin 
 
 
 ### Side kicks
