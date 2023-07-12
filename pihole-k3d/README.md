@@ -10,7 +10,7 @@ To run:
         e.g /mnt/data/pihole
    - Provide details in config file to be used for deploying the application
    - Execute run.sh script.
-   - Access webgui at  http://<IP-address>/admin 
+   - Access webgui at  http://IP-address/admin 
 
 Docker network bridge (Macvlan) is created to expose the services to local network. It limits the communication between the host and the containers running on this network bridge. Following cammands can be used to supplement host <-> containers communications.
 
