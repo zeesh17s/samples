@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-config
+  labels: 
+    app: pihole
+    directory: pihole
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 650M
+  storageClassName: default
+  selector:
+    matchLabels:
+       app: pihole
+       directory: etc
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-dnsmasq
+  labels: 
+    app: pihole
+    directory: dnsmasq
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 30M
+  storageClassName: default
+  selector:
+    matchLabels:
+       app: pihole
+       directory: dnsmasq

@@ -1,0 +1,45 @@
+# k3d configuration file, saved as e.g. /home/me/myk3dcluster.yaml
+apiVersion: k3d.io/v1alpha5 # this will change in the future as we make everything more stable
+kind: Simple # internally, we also have a Cluster config, which is not yet available externally
+metadata:
+  name: ${CLUSTERNAME} # name that you want to give to your cluster (will still be prefixed with `k3d-`)
+servers: 1 # same as `--servers 1`
+agents: 0 # same as `--agents 2` issues tbd
+#### not tested yes
+kubeAPI:
+  host: ${SERVER0} # add in /etc/host 
+  hostIP: ${KUBE_API_IP} # where kubernetes api will be listening.
+  hostPort: "${KUBE_API_PORT}" # where kubernetes api will be listening
+####
+network: ${DOCKERBR} # same as `--network my-custom-net`
+
+volumes:
+
+  - volume: ${PWD}/prelim/metallb-native.yaml:/var/lib/rancher/k3s/server/manifests/metallb-native.yaml
+    nodeFilters:
+      - server:0
+  - volume: ${PWD}/prelim/metallb-config.yaml:/var/lib/rancher/k3s/server/manifests/metallb-config.yml
+    nodeFilters:
+      - server:0
+  - volume: ${PWD}/prelim/deploy.yaml:/var/lib/rancher/k3s/server/manifests/deploy.yml
+    nodeFilters:
+      - server:0
+  - volume: ${DATADIR}:/var/pods/data/pihole
+    nodeFilters:
+      - server:0
+      - agent:*
+options:
+  k3d: # k3d runtime settings
+    wait: true # wait for cluster to be usable before returining; same as `--wait` (default: true)
+    #timeout: "60s" # wait timeout before aborting; same as `--timeout 60s`
+    disableLoadbalancer: true # same as `--no-lb`
+    disableImageVolume: false # same as `--no-image-volume`
+    disableRollback: false # same as `--no-Rollback`
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik,servicelb,metrics-server   #--disable=traefik@server:0 
+        nodeFilters:
+          - server:*
+  kubeconfig:
+    updateDefaultKubeconfig: true # add new cluster to your default Kubeconfig; same as `--kubeconfig-update-default` (default: true)
+    switchCurrentContext: true # also set current-context to the new cluster's context; same as `--kubeconfig-switch-context` (default: true)

@@ -1,0 +1,4 @@
+sudo ip link add host-cntr link eth0 type macvlan mode bridge
+sudo ip addr add 192.168.1.140/28 dev host-cntr
+sudo ip l set host-cntr up
+sudo ip route add 192.168.1.128/28 dev host-cntr

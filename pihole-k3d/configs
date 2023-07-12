@@ -1,0 +1,28 @@
+
+ CLUSTERNAME="piholedemo"
+
+#Setting up Docker macvlan bridge
+DOCKERBR="my-macvlan-net"
+SUBNET="192.168.1.0/24"
+GATEWAY="192.168.1.1"
+IPRANGE="192.168.1.128/29"
+PARENTINF="eth0"
+
+# Server and Agents ip addresses are auto assigned by k3d.
+# Server-0 is the primary server where kube APIs listen and needs to be set here.
+# k3d selects first availalbe ip for Server-0 from the Docker macvlan bridge.
+KUBE_API_IP="192.168.1.130"
+KUBE_API_PORT="6443"
+
+# Metallb load balancer
+# IP address pool from the range set in docker macvlan bridge above.
+IP_START_RANGE="192.168.1.133"
+IP_END_RANGE="192.168.1.134"
+
+# Pihole Service ip 
+IP_PIHOLE="192.168.1.133"
+WEB_PASSWORD="pihole123"
+DATADIR=/var/pods/data/pihole
+
+TIMEZONE="Australia/Melbourne"
+WEBPASSWORD="pihole-pihole"

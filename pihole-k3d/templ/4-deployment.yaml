@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole-deployment
+  labels:
+    app: pihole
+  namespace: default
+spec:
+   replicas: 1
+   selector:
+    matchLabels:
+      app: pihole
+   template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      containers:
+        - name: pihole-container
+          image: pihole/pihole:latest
+          env:
+            - name: TZ
+              value: "{{TIMEZONE}}" 
+            - name: DNSMASQ_LISTENING
+              value: "all"  
+            - name: WEBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: web-secret
+                  key: webpassword
+          volumeMounts:
+            - name: pihole-data
+              readOnly: false
+              mountPath: "/etc/pihole/"
+              subPath: pihole
+            - name: dnsmasq-config
+              readOnly: false
+              mountPath: "/etc/dnsmasq.d"
+              subPath: dnsmasq.d          
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
+      volumes:
+        - name: pihole-data
+          persistentVolumeClaim:
+            claimName: pihole-config
+        - name: dnsmasq-config
+          persistentVolumeClaim:
+            claimName: pihole-dnsmasq
