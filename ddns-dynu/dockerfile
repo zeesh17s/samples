@@ -1,0 +1,18 @@
+From python:3.11.0b1-alpine3.15
+RUN apk update && apk add tzdata
+ENV TZ=Asia/Muscat
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt 
+
+COPY ./update.py .
+
+RUN pip3 install -r requirements.txt
+
+ENTRYPOINT echo "*/3	*	*	*	*  /usr/local/bin/python3 /app/update.py " > /etc/crontabs/root && \
+      file="/job.sh" && \
+      echo "#! /bin/sh" > $file && \
+      echo "/usr/sbin/crond -f -l 8" >> $file && \
+      chmod +x $file && \
+      /job.sh
