@@ -7,7 +7,7 @@ It can be run as a usual cron job or in a docker container.
 To run in a docker container:
 
 
-```
+```bash
  docker run -itd \
 --name $CONTAINER \
 --env apiKey=<API_KEY> \
