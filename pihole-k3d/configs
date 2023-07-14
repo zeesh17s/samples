@@ -25,4 +25,3 @@ WEB_PASSWORD="pihole123"
 DATADIR=/var/pods/data/pihole
 
 TIMEZONE="Australia/Melbourne"
-WEBPASSWORD="pihole-pihole"
