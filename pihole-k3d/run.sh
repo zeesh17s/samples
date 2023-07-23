@@ -12,9 +12,7 @@ DEPLOY="${PRELIMDIR}/deploy.yaml"
 [ ! -d $DATADIR ] && { echo "Directory to store pihole data is not found. $DATADIR "; exit 3; }  \
                   || echo "Mounting data at: $DATADIR "
 
-[ -f $DEPLOY ]  && rm $DEPLOY
-[ -f $PRELIMDIR/metallb-config.yaml ] && rm $PRELIMDIR/metallb-config.yaml
-
+find ./prelim -type f -regex ".*\(config\|deploy\)\.yaml" -delete
 
 create_br() {
        echo "creating network $DOCKERBR";
