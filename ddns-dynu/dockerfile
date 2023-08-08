@@ -1,6 +1,6 @@
 From python:3.11.0b1-alpine3.15
 RUN apk update && apk add tzdata
-ENV TZ=Asia/Muscat
+ENV TZ=Australia/Melbourne
 
 WORKDIR /app
 
